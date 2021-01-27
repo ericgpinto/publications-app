@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping(value ="/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
+    //@ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<User> findById(@PathVariable String id){
         User obj = userService.findById(id);
         if(obj == null){

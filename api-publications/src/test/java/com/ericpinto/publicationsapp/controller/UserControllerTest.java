@@ -29,6 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
 
+    List<User> users = new ArrayList<>();
+
     @Autowired
     private MockMvc mvc;
 
@@ -43,7 +45,16 @@ public class UserControllerTest {
     @BeforeEach
     public void setUp() {
         this.mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        User firstUser = User.builder()
+                .id("6010a4bd4bd17b16038a602e")
+                .name("Éric Pinto")
+                .email("ericgrandopinto@gmail.com").build();
+
+        users.add(firstUser);
     }
+
+
+
 
     @Test
     public void shouldReturnAllUsers_whenAListOfUsersIsPassed() throws Exception {
@@ -95,12 +106,10 @@ public class UserControllerTest {
                 .andExpect(content().string(this.mapper.writeValueAsString(user)));
     }
 
-
-
     @Test
     public void should_ReturnNotFound_when_usernotfound() throws Exception {
-        when(userService.findById("6010a4bd4bd17b16038a602e")).thenReturn(null);
-        mvc.perform(get("/users/6010a4bd4bd17b16038a602e")
+        when(userService.findById("asdas")).thenReturn(users.get(0));
+        mvc.perform(get("/users/asdasd")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
