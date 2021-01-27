@@ -19,7 +19,7 @@ public class UserService {
     }
 
     public User findById(String id) {
-        return userRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("User não encontrado"));
+        return userRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException());
     }
 
     public User create(User user){
