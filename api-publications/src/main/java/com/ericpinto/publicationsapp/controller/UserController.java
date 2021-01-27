@@ -14,12 +14,18 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @GetMapping
     public ResponseEntity<List<User>> findAll(){
         List<User> list = userService.findAll();
         return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping(value ="/{id}")
+    public ResponseEntity<User> findById(@PathVariable String id){
+        User obj = userService.findById(id);
+        return ResponseEntity.ok().body(obj);
     }
 
     @PostMapping
