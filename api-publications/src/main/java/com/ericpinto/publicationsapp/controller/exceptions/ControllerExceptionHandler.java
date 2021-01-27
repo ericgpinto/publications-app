@@ -14,16 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
-//    @ExceptionHandler(ObjectNotFoundException.class)
-//    public ResponseEntity<StandartError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request){
-//        HttpStatus status = HttpStatus.NOT_FOUND;
-//        StandartError err = new StandartError(System.currentTimeMillis(), status.value(), "Não encontrado", e.getMessage(),request.getRequestURI());
-//        return ResponseEntity.status(status).body(err);
-//    }
-
-    @ResponseStatus(HttpStatus.NOT_FOUND) // 404
     @ExceptionHandler(ObjectNotFoundException.class)
-    public void handleNotFound(ObjectNotFoundException ex) {
-        log.error("Requested user not found");
+    public ResponseEntity<StandartError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request){
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        StandartError standartError = StandartError.builder()
+                .message(e.getMessage()).build();
+        return ResponseEntity.status(status).body(standartError);
     }
+
 }
