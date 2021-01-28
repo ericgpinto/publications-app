@@ -1,0 +1,5 @@
+property "sonar.projectKey", "667eab6bef5f2c71469117f976b7e66f2c77cba6" //chave/id único do projeto no dashboard do SonarQube
+property "sonar.language", "java"
+property "sonar.login", "admin"
+property "sonar.password", "snq123000"
+property "sonar.host.url","http://localhost:9000"

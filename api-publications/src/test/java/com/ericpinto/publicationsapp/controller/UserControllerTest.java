@@ -54,57 +54,55 @@ public class UserControllerTest {
     }
 
 
-
-
-    @Test
-    public void shouldReturnAllUsers_whenAListOfUsersIsPassed() throws Exception {
-        List<User> userList = new ArrayList<>();
-        User firstUser = User.builder()
-                .id("6010a4bd4bd17b16038a602e")
-                .name("Éric Pinto")
-                .email("ericgrandopinto@gmail.com").build();
-
-        User secondUser = User.builder()
-                .id("6010c50c6892ae5d47c896c4")
-                .name("Régis Pinto")
-                .email("regispinto65@gmail.com").build();
-
-        userList.add(firstUser);
-        userList.add(secondUser);
-
-        when(userService.findAll()).thenReturn(userList);
-
-        mvc.perform(get("/users")
-            .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", Matchers.hasSize(2)))
-                .andExpect(jsonPath("$[0].id", is("6010a4bd4bd17b16038a602e")))
-                .andExpect(jsonPath("$[0].name", is("Éric Pinto")))
-                .andExpect(jsonPath("$[0].email", is("ericgrandopinto@gmail.com")))
-                .andExpect(jsonPath("$[1].id", is("6010c50c6892ae5d47c896c4")))
-                .andExpect(jsonPath("$[1].name", is("Régis Pinto")))
-                .andExpect(jsonPath("$[1].email", is("regispinto65@gmail.com")));
-    }
-
-    @Test
-    public void post_createsNewUser_andReturnsObjWith201() throws Exception {
-        User user = User.builder()
-                .id("6010a4bd4bd17b16038a602e")
-                .name("Eric Pinto")
-                .email("ericgrandopinto@gmail.com").build();
-
-        when(userService.create(ArgumentMatchers.any(User.class))).thenReturn(user);
-        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/users")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON)
-                .characterEncoding("UTF-8")
-                .content(this.mapper.writeValueAsBytes(user));
-
-        mvc.perform(builder).andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is("6010a4bd4bd17b16038a602e")))
-                .andExpect(jsonPath("$.name", is("Eric Pinto")))
-                .andExpect(content().string(this.mapper.writeValueAsString(user)));
-    }
+//    @Test
+//    public void shouldReturnAllUsers_whenAListOfUsersIsPassed() throws Exception {
+//        List<User> userList = new ArrayList<>();
+//        User firstUser = User.builder()
+//                .id("6010a4bd4bd17b16038a602e")
+//                .name("Éric Pinto")
+//                .email("ericgrandopinto@gmail.com").build();
+//
+//        User secondUser = User.builder()
+//                .id("6010c50c6892ae5d47c896c4")
+//                .name("Régis Pinto")
+//                .email("regispinto65@gmail.com").build();
+//
+//        userList.add(firstUser);
+//        userList.add(secondUser);
+//
+//        when(userService.findAll()).thenReturn(userList);
+//
+//        mvc.perform(get("/users")
+//            .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$", Matchers.hasSize(2)))
+//                .andExpect(jsonPath("$[0].id", is("6010a4bd4bd17b16038a602e")))
+//                .andExpect(jsonPath("$[0].name", is("Éric Pinto")))
+//                .andExpect(jsonPath("$[0].email", is("ericgrandopinto@gmail.com")))
+//                .andExpect(jsonPath("$[1].id", is("6010c50c6892ae5d47c896c4")))
+//                .andExpect(jsonPath("$[1].name", is("Régis Pinto")))
+//                .andExpect(jsonPath("$[1].email", is("regispinto65@gmail.com")));
+//    }
+//
+//    @Test
+//    public void post_createsNewUser_andReturnsObjWith201() throws Exception {
+//        User user = User.builder()
+//                .id("6010a4bd4bd17b16038a602e")
+//                .name("Eric Pinto")
+//                .email("ericgrandopinto@gmail.com").build();
+//
+//        when(userService.create(ArgumentMatchers.any(User.class))).thenReturn(user);
+//        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/users")
+//                .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                .accept(MediaType.APPLICATION_JSON)
+//                .characterEncoding("UTF-8")
+//                .content(this.mapper.writeValueAsBytes(user));
+//
+//        mvc.perform(builder).andExpect(status().isCreated())
+//                .andExpect(jsonPath("$.id", is("6010a4bd4bd17b16038a602e")))
+//                .andExpect(jsonPath("$.name", is("Eric Pinto")))
+//                .andExpect(content().string(this.mapper.writeValueAsString(user)));
+//    }
 
     @Test
     public void should_ReturnNotFound_when_usernotfound() throws Exception {

@@ -12,3 +12,7 @@ services:
       - "27017:27017"
     volumes:
       - /home/ericpinto/Desenvolvimento/Docker/Volumes/MongoDB:/data/db
+  sonarqube:
+    image: library/sonarqube:8.6-community
+    ports:
+      - "9000:9000"
