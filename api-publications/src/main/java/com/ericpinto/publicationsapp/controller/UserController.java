@@ -56,4 +56,13 @@ public class UserController {
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping(value ="/{id}")
+    @ApiOperation(value = "Edita um usuario")
+    public ResponseEntity<Void> update(@RequestBody User user, @PathVariable String id){
+        User obj = userService.fromUser(user);
+        obj.setId(id);
+        obj = userService.update(obj);
+        return ResponseEntity.noContent().build();
+    }
 }
