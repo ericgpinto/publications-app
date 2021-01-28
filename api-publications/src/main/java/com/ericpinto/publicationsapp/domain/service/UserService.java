@@ -25,4 +25,11 @@ public class UserService {
     public User create(User user){
         return userRepository.insert(user);
     }
+
+    public void delete(String id){
+        findById(id);
+        userRepository.deleteById(id);
+    }
+
+
 }

@@ -49,4 +49,11 @@ public class UserController {
         User objUser = userService.create(user);
         return objUser;
     }
+
+    @DeleteMapping(value ="/{id}")
+    @ApiOperation(value = "Exclui um usuario")
+    public ResponseEntity<Void> delete(@PathVariable String id){
+        userService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
