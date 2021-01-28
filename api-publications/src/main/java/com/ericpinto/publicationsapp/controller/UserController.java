@@ -3,6 +3,8 @@ package com.ericpinto.publicationsapp.controller;
 import com.ericpinto.publicationsapp.domain.model.User;
 import com.ericpinto.publicationsapp.domain.service.UserService;
 import com.ericpinto.publicationsapp.domain.service.exceptions.ObjectNotFoundException;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,20 +17,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping(value = "api/users")
+@Api(value = "API REST Users")
+@CrossOrigin(origins = "*")
 @AllArgsConstructor
 public class UserController {
 
     private final UserService userService;
 
     @GetMapping
+    @ApiOperation(value = "Retorna uma lista de usuários")
     public ResponseEntity<List<User>> findAll(){
         List<User> list = userService.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value ="/{id}")
-    //@ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Retorna um único usuario")
     public ResponseEntity<User> findById(@PathVariable String id){
         User obj = userService.findById(id);
         if(obj == null){
@@ -39,6 +44,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Cria um usuario")
     public User create(@RequestBody User user){
         User objUser = userService.create(user);
         return objUser;
