@@ -33,12 +33,6 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public void deleteMany(List<String> ids){
-        for (String id: ids) {
-            delete(id);
-        }
-    }
-
     public User update(User obj){
         User updatedUser = findById(obj.getId());
         updateData(updatedUser, obj);

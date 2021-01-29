@@ -60,7 +60,7 @@ public class UserController {
     @DeleteMapping
     @ApiOperation(value = "Exclui varios usuários")
     public ResponseEntity<Void> deleteAll(@RequestBody List<String> ids){
-        userService.deleteMany(ids);
+        ids.stream().forEach(x -> userService.delete(x));
         return ResponseEntity.noContent().build();
     }
 
