@@ -57,6 +57,13 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping
+    @ApiOperation(value = "Exclui varios usuários")
+    public ResponseEntity<Void> deleteAll(@RequestBody List<String> ids){
+        userService.deleteMany(ids);
+        return ResponseEntity.noContent().build();
+    }
+
     @PutMapping(value ="/{id}")
     @ApiOperation(value = "Edita um usuario")
     public ResponseEntity<Void> update(@RequestBody User user, @PathVariable String id){

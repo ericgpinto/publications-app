@@ -6,7 +6,9 @@ import com.ericpinto.publicationsapp.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
@@ -29,6 +31,12 @@ public class UserService {
     public void delete(String id){
         findById(id);
         userRepository.deleteById(id);
+    }
+
+    public void deleteMany(List<String> ids){
+        for (String id: ids) {
+            delete(id);
+        }
     }
 
     public User update(User obj){
