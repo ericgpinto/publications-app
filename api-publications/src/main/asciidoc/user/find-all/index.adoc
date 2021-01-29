@@ -1,0 +1,7 @@
+[[users_find_all]]
+
+=== Users
+
+==== Find all users
+
+include::success.adoc[]

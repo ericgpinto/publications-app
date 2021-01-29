@@ -1,0 +1,11 @@
+:sectnums: 2
+:sectnumlevels: 5
+:toc: left
+:toclevels: 4
+:page-layout: docs
+
+= Publications API
+
+[[tile]]
+== API PUBLICATIONS
+include::user/find-all/index.adoc[]

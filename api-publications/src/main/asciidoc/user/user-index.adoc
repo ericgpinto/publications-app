@@ -1,0 +1,5 @@
+= User API
+
+[[examples]]
+== API PUBLICATIONS
+include::find-all/index.adoc[]
