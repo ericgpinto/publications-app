@@ -43,13 +43,9 @@ public class UserService {
         updatedUser.setEmail(obj.getEmail());
     }
 
-    public User fromUser(User user){
+    public User fromUser(User user) {
         return User.builder()
                 .id(user.getId()).name(user.getName()).email(user.getEmail())
                 .build();
     }
-
-
-
-
 }

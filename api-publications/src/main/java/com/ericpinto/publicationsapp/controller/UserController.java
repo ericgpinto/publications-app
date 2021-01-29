@@ -2,19 +2,18 @@ package com.ericpinto.publicationsapp.controller;
 
 import com.ericpinto.publicationsapp.domain.model.User;
 import com.ericpinto.publicationsapp.domain.service.UserService;
-import com.ericpinto.publicationsapp.domain.service.exceptions.ObjectNotFoundException;
+import com.ericpinto.publicationsapp.repository.UserRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.servlet.http.HttpServletResponse;
-import java.net.URI;
+import java.lang.reflect.Field;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "api/users")
@@ -24,6 +23,7 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
 
     @GetMapping
     @ApiOperation(value = "Retorna uma lista de usuários")
@@ -65,4 +65,19 @@ public class UserController {
         obj = userService.update(obj);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping(value = "/{id}")
+    @ApiOperation(value = "Edita um campo especifico de um usuario")
+    public ResponseEntity<Void> saveUser(@PathVariable String id, @RequestBody Map<Object, Object> fields){
+        User user = userService.findById(id);
+        fields.forEach((k, v) -> {
+            Field field = ReflectionUtils.findField(User.class, (String) k);
+            field.setAccessible(true);
+            ReflectionUtils.setField(field, user, v);
+        });
+
+        userService.update(user);
+        return ResponseEntity.noContent().build();
+    }
+
 }
